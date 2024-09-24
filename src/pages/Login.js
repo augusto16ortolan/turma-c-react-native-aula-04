@@ -1,16 +1,8 @@
-import {
-  StyleSheet,
-  View,
-  Text,
-  Image,
-  TextInput,
-  Alert,
-  TouchableOpacity,
-  ActivityIndicator,
-} from "react-native";
+import { StyleSheet, View, Text, Alert, TouchableOpacity } from "react-native";
 import React, { useState } from "react";
 import RMButton from "../components/RMButton";
 import RMTextInput from "../components/RMTextInput";
+import RMLogo from "../components/RMLogo";
 import { FontAwesome } from "@expo/vector-icons";
 
 export default function Login() {
@@ -79,12 +71,7 @@ export default function Login() {
 
   return (
     <View style={styles.container}>
-      <Image
-        style={styles.containerImage}
-        width={303}
-        height={295}
-        source={require("../assets/images/logo.png")}
-      />
+      <RMLogo customStyle={{ marginBottom: 10 }} width={303} height={295} />
       <RMTextInput
         value={usuario}
         onChangeText={informaUsuario}
@@ -135,10 +122,6 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     padding: 16,
-  },
-
-  containerImage: {
-    marginBottom: 65,
   },
   botaoTextoSenha: {
     fontSize: 16,
