@@ -6,6 +6,7 @@ import {
   TextInput,
   TouchableOpacity,
   Alert,
+  ActivityIndicator,
 } from "react-native";
 import React, { useState } from "react";
 
@@ -14,8 +15,13 @@ export default function App() {
   const [senha, setSenha] = useState(null);
   const [erroUsuario, setErroUsuario] = useState(false);
   const [erroSenha, setErroSenha] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   function login() {
+    if (loading) {
+      return;
+    }
+
     setErroUsuario(false);
     setErroSenha(false);
 
@@ -27,7 +33,20 @@ export default function App() {
       setErroSenha(true);
     }
 
-    Alert.alert("Login", "Usuário: " + usuario + " Senha: " + senha);
+    if (!senha || !usuario) {
+      return;
+    }
+    console.log("teste");
+
+    setLoading(true);
+
+    console.log(loading);
+    setTimeout(() => {
+      console.log("teste 123");
+      setLoading(false);
+    }, 3000);
+
+    //Alert.alert("Login", "Usuário: " + usuario + " Senha: " + senha);
   }
 
   function informaUsuario(value) {
@@ -74,7 +93,11 @@ export default function App() {
       />
       {erroSenha && <Text>Senha é obrigatória</Text>}
       <TouchableOpacity onPress={() => login()} style={styles.botao}>
-        <Text style={styles.botaoTexto}>Acessar</Text>
+        {loading ? (
+          <ActivityIndicator size={"small"} color={"white"} />
+        ) : (
+          <Text style={styles.botaoTexto}>Acessar</Text>
+        )}
       </TouchableOpacity>
 
       <View style={styles.containerSenha}>
