@@ -1,4 +1,3 @@
-import { StatusBar } from "expo-status-bar";
 import {
   StyleSheet,
   View,
@@ -6,9 +5,51 @@ import {
   Image,
   TextInput,
   TouchableOpacity,
+  Alert,
 } from "react-native";
+import React, { useState } from "react";
 
 export default function App() {
+  const [usuario, setUsuario] = useState(null);
+  const [senha, setSenha] = useState(null);
+  const [erroUsuario, setErroUsuario] = useState(false);
+  const [erroSenha, setErroSenha] = useState(false);
+
+  function login() {
+    setErroUsuario(false);
+    setErroSenha(false);
+
+    if (!usuario) {
+      setErroUsuario(true);
+    }
+
+    if (!senha) {
+      setErroSenha(true);
+    }
+
+    Alert.alert("Login", "Usuário: " + usuario + " Senha: " + senha);
+  }
+
+  function informaUsuario(value) {
+    if (!value) {
+      setErroUsuario(true);
+    } else {
+      setErroUsuario(false);
+    }
+
+    setUsuario(value);
+  }
+
+  function informaSenha(value) {
+    if (!value) {
+      setErroSenha(true);
+    } else {
+      setErroSenha(false);
+    }
+
+    setSenha(value);
+  }
+
   return (
     <View style={styles.container}>
       <Image
@@ -17,13 +58,22 @@ export default function App() {
         height={295}
         source={require("./assets/images/logo.png")}
       />
-      <TextInput style={styles.caixaTexto} placeholder="Digite seu usuário" />
       <TextInput
+        value={usuario}
+        onChangeText={(value) => informaUsuario(value)}
+        style={styles.caixaTexto}
+        placeholder="Digite seu usuário"
+      />
+      {erroUsuario ? <Text>Usuário é obrigatorio</Text> : <></>}
+      <TextInput
+        value={senha}
+        onChangeText={(value) => informaSenha(value)}
         secureTextEntry
         style={styles.caixaTexto}
         placeholder="Digite sua senha"
       />
-      <TouchableOpacity style={styles.botao}>
+      {erroSenha && <Text>Senha é obrigatória</Text>}
+      <TouchableOpacity onPress={() => login()} style={styles.botao}>
         <Text style={styles.botaoTexto}>Acessar</Text>
       </TouchableOpacity>
 
