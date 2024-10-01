@@ -1,5 +1,6 @@
 import { StyleSheet, Text, TouchableOpacity } from "react-native";
 import React from "react";
+import { colors, fontSizes, globalStyles } from "../styles/styles";
 
 export default function RMButton({
   titulo,
@@ -9,7 +10,7 @@ export default function RMButton({
 }) {
   return (
     <TouchableOpacity
-      style={[styles.botao, customButtonStyle]}
+      style={[globalStyles.botao, customButtonStyle]}
       onPress={action}
     >
       <Text style={[styles.botaoTexto, customTextStyle]}>{titulo}</Text>
@@ -21,13 +22,13 @@ const styles = StyleSheet.create({
   botao: {
     width: "80%",
     height: 39,
-    backgroundColor: "#770602",
+    backgroundColor: colors.vermelho,
     borderRadius: 30,
     alignItems: "center",
     justifyContent: "center",
   },
   botaoTexto: {
-    fontSize: 16,
+    fontSize: fontSizes.medio,
     color: "#FFFFFF",
   },
 });

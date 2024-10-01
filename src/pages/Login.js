@@ -4,8 +4,9 @@ import RMButton from "../components/RMButton";
 import RMTextInput from "../components/RMTextInput";
 import RMLogo from "../components/RMLogo";
 import { FontAwesome } from "@expo/vector-icons";
+import { colors } from "../styles/styles";
 
-export default function Login() {
+export default function Login({ navigation }) {
   const [usuario, setUsuario] = useState(null);
   const [senha, setSenha] = useState(null);
   const [erroUsuario, setErroUsuario] = useState(false);
@@ -42,7 +43,9 @@ export default function Login() {
       setLoading(false);
     }, 3000);
 
-    Alert.alert("Login", "Usuário: " + usuario + " Senha: " + senha);
+    navigation.replace("Home", {
+      usuarioLogado: usuario,
+    });
   }
 
   function informaUsuario(value) {
@@ -96,7 +99,10 @@ export default function Login() {
       <RMButton titulo="Acessar" action={login} />
 
       <View style={styles.containerSenha}>
-        <TouchableOpacity style={styles.botaoSenha}>
+        <TouchableOpacity
+          onPress={() => navigation.navigate("EsqueceuSenha")}
+          style={styles.botaoSenha}
+        >
           <Text style={styles.botaoTextoSenha}>Esqueci minha senha</Text>
         </TouchableOpacity>
       </View>
@@ -105,7 +111,10 @@ export default function Login() {
         <Text style={styles.botaoTextoCadastro}>
           Ainda não possuí um cadastro?
         </Text>
-        <TouchableOpacity style={styles.botaoCadastro}>
+        <TouchableOpacity
+          onPress={() => navigation.navigate("Cadastro")}
+          style={styles.botaoCadastro}
+        >
           <Text style={[styles.botaoTextoCadastro, { fontWeight: "bold" }]}>
             Cadastre-se
           </Text>
@@ -118,7 +127,7 @@ export default function Login() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#F7EEE9",
+    backgroundColor: colors.backgroud,
     alignItems: "center",
     justifyContent: "center",
     padding: 16,
