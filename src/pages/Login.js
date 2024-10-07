@@ -5,6 +5,7 @@ import RMTextInput from "../components/RMTextInput";
 import RMLogo from "../components/RMLogo";
 import { FontAwesome } from "@expo/vector-icons";
 import { colors } from "../styles/styles";
+import { useAuth } from "../context/AuthContext";
 
 export default function Login({ navigation }) {
   const [usuario, setUsuario] = useState(null);
@@ -13,6 +14,8 @@ export default function Login({ navigation }) {
   const [erroSenha, setErroSenha] = useState(false);
   const [loading, setLoading] = useState(false);
   const [passwordInvisible, setPasswordInvisible] = useState(true);
+
+  const { setToken, setUser } = useAuth();
 
   function login() {
     if (loading) {
@@ -35,17 +38,12 @@ export default function Login({ navigation }) {
     }
     console.log("teste");
 
+    setUser({ usuario, senha });
+    setToken("sygfdytsfdygsfdhgsfdufsdgfsdhgsfdghfsdhgfshdg");
+
     setLoading(true);
 
-    console.log(loading);
-    setTimeout(() => {
-      console.log("teste 123");
-      setLoading(false);
-    }, 3000);
-
-    navigation.replace("Home", {
-      usuarioLogado: usuario,
-    });
+    navigation.replace("Home");
   }
 
   function informaUsuario(value) {

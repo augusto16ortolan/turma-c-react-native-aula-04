@@ -1,13 +1,16 @@
 import { StyleSheet, Text, View, Button } from "react-native";
 import React from "react";
+import { useAuth } from "../context/AuthContext";
 
-export default function Home({ navigation, route }) {
-  const { usuarioLogado } = route.params;
+export default function Home({ navigation }) {
+  const { user, token } = useAuth();
 
   return (
     <View style={styles.container}>
       <Text>Home</Text>
-      <Text>{usuarioLogado}</Text>
+      <Text>{user.usuario}</Text>
+      <Text>{user.senha}</Text>
+      <Text>{token}</Text>
       <Button title="Logout" onPress={() => navigation.replace("Login")} />
     </View>
   );
